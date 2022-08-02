@@ -12,6 +12,7 @@ namespace GoRest.Api.Tests.Users
     [TestFixture]
     public class CreateUserApiTests
     {
+        [Repeat(2)]
         [Test]
         public async Task Verify_UserIsCreated()
         {

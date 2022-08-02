@@ -9,6 +9,9 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
     {
         [Get("users/")]   
         Task<GeneralResponse<List<GetUserResponseModel>>> GetAll();
+        
+        [Get("users/{userId}")]   
+        Task<GeneralResponse<GetUserResponseModel>> GetUser([Path] string userId);
        
         [Post("users/")]
         Task<GeneralResponse<GetUserResponseModel>> CreateUser([Body] CreateUserModel userModel);

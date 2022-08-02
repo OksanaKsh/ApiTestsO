@@ -14,15 +14,20 @@ namespace GoRest.Api.Tests.Users
         public async Task Verify_GetAllUsers_Endpoint_ReturnsInfo()
         {
             // Arrange & Act
-            var client = await GoRestClient.For<IUsersApi>().GetAll();
+            var response = await GoRestClient.For<IUsersApi>().GetAll();
 
             // Assert
-            client.Code.Should().Be(HttpStatusCode.OK);
-            client.Meta.Should().NotBeNull();
-            client.Data.Should().NotBeEmpty();
+            response.Code.Should().Be(HttpStatusCode.OK);
+            response.Meta.Should().NotBeNull();
+            response.Data.Should().NotBeEmpty();
+
+            response.Meta.Pagination.Should().NotBeNull();    
+            response.Meta.Pagination.Limit.Should().BePositive();    
+            response.Meta.Pagination.Page.Should().BePositive();    
+            response.Meta.Pagination.Pages.Should().BePositive();
+            response.Meta.Pagination.Total.Should().BePositive();
+            // Can be better assert than be.positive?
+
         }
-
-        // verify pagination
-
     }
 }

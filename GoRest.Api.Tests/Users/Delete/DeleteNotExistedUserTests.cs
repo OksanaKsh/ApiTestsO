@@ -17,15 +17,13 @@ namespace GoRest.Api.Tests.Users
             // Arrange
             string userId = "1300000000000";
 
-            // Arrange & Act
+            // Act
             var response = await GoRestClient.For<IUsersApi>().DeleteUser(userId);
 
             // Assert
             response.Code.Should().Be(HttpStatusCode.NotFound); 
 
-            //response.Data.Should().BeNull();
+            //response.Data.Should().BeNull();failed ???
         }
-
-        // verify pagination
     }
 }

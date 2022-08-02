@@ -36,7 +36,5 @@ namespace GoRest.Api.Tests.Users
             response.Data.Name.Should().Be(userModel.Name);
             response.Data.Status.Should().Be(userModel.Status);
         }
-
-        // verify pagination
     }
 }
