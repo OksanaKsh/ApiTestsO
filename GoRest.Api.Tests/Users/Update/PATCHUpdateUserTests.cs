@@ -10,7 +10,7 @@ using System;
 namespace GoRest.Api.Tests.Users
 {
     [TestFixture]
-    public class UpdateUserTests
+    public class PATCHUpdateUserTests
     {
         [Test]
         public async Task Verify_User_Is_Updated()
@@ -20,13 +20,13 @@ namespace GoRest.Api.Tests.Users
             var userModel = new UpdateUserModel()
             {
                 Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
                 Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
+                Gender = Gender.Male,
+                Status = Status.Inactive
             };
 
             //Act
-            var response = await GoRestClient.For<IUsersApi>().UpdateUser(userId, userModel);
+            var response = await GoRestClient.For<IUsersApi>().UpdateUserInfo(userId, userModel);
 
             // Assert
             response.Code.Should().Be(HttpStatusCode.OK);

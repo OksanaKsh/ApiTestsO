@@ -10,11 +10,11 @@ using NUnit.Framework;
 namespace GoRest.Api.Tests.Users
 {
     [TestFixture]
-    public class CreateUserApiTests
+    public class CreateUserApiTestsNegative
     {
-        [Repeat(2)]
+        
         [Test]
-        public async Task Verify_UserIsCreated()
+        public async Task VerifyErrorMessageReceivedWhenCreateAlreadyCreatedUser()
         {
             // Arrange
             var userModel = new CreateUserModel()
@@ -25,12 +25,15 @@ namespace GoRest.Api.Tests.Users
                 Status = Status.Active
             };
 
+            await GoRestClient.For<IUsersApi>().CreateUser(userModel);
+
             // Act
-            var response = await GoRestClient.For<IUsersApi>().CreateUser(userModel);
+            var response = await GoRestClient.For<IUsersApi>().CreateUserNegative(userModel);
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.Created);
-            response.Data.Id.Should().BePositive();
+            response.Code.Should().Be(HttpStatusCode.UnprocessableEntity);
+            response.Data[0].Field.Should().Be("email");
+            response.Data[0].Message.Should().Be("has already been taken");
         }
     }
 }
