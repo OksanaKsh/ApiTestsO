@@ -1,14 +1,25 @@
 ﻿using GoRest.Api.Client.Client.Models;
 using RestEase;
+using static GoRest.Api.Client.Client.GoRestClientExtensions;
 
 namespace GoRest.Api.Client.Client.Interfaces.Controllers
 {
     [Header("Accept", "application/json")]
     [Header("Content-Type", "application/json")]
+
     public interface IUsersApi : ISupportBearerAuth
     {
-        [Get("users/")]   
+
+        [Header("X-Pagination-Total")]
+        [Header("X-Pagination-Pages")]
+        [Header("X-Pagination-Page")]
+        [Header("X-Pagination-Limit")]
+
+        [Get("users/")]
         Task<GeneralResponse<List<GetUserResponseModel>>> GetAll();
+
+        [Get("users/")]
+        Task<GeneralResponse<GetUserErrorResponseModel>> GetAllNegative();
 
         [Get("users/{userId}")]
         Task<GeneralResponse<GetUserResponseModel>> GetUser([Path] string userId);
@@ -20,15 +31,27 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
         Task<GeneralResponse<GetUserResponseModel>> CreateUser([Body] CreateUserModel userModel);
 
         [Post("users/")]
+        Task<GeneralResponse<AuthentificationFailedModel>> CreateUserNegativeAuth([Body] CreateUserModel userModel);
+
+        [Post("users/")]
         Task<GeneralResponse<List<CreateUserErrorResponseModel>>> CreateUserNegative([Body] CreateUserModel userModel);
 
         [Put("users/{userId}")]
-        Task<GeneralResponse<GetUserResponseModel>> UpdateUser([Path] string userId,[Body] UpdateUserModel userModel);
+        Task<GeneralResponse<GetUserResponseModel>> UpdateUser([Path] string userId, [Body] UpdateUserModel userModel);
+
+        [Put("users/{userId}")]
+        Task<GeneralResponse<List<UpdateUserErrorResponseModel>>> UpdateUserNegative([Path] string userId, [Body] UpdateUserModel userModel);
+
+        [Put("users/{userId}")]
+        Task<GeneralResponse<AuthentificationFailedModel>> UpdateUserNegativeAuth([Path] string userId, [Body] UpdateUserModel userModel);
 
         [Patch("users/{userId}")]
         Task<GeneralResponse<GetUserResponseModel>> UpdateUserInfo([Path] string userId, [Body] UpdateUserModel userModel);
 
         [Delete("users/{userId}")]
         Task<GeneralResponse<GetUserResponseModel>> DeleteUser([Path] string userId);
+
+        [Delete("users/{userId}")]
+        Task<GeneralResponse<AuthentificationFailedModel>> DeleteUserNegativeAuth([Path] string userId);
     }
 }

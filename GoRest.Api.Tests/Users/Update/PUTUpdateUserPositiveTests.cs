@@ -10,10 +10,10 @@ using System;
 namespace GoRest.Api.Tests.Users
 {
     [TestFixture]
-    public class PATCHUpdateUserTests
+    public class PUTUpdateUserPositiveTests
     {
         [Test]
-        public async Task VerifyUserInfoIsUpdated()
+        public async Task VerifyUserIsUpdated()
         {
             // Arrange
             var userModelCreate = new CreateUserModel()
@@ -26,24 +26,25 @@ namespace GoRest.Api.Tests.Users
 
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModelCreate);
             var userId = responseCreateUser.Data.Id.ToString();
-            var userModel = new UpdateUserModel()
+            
+            var userModelUpdate = new UpdateUserModel()
             {
                 Email = new Random().Next(1111, 5555) + "@gmail.com",
+                Gender = Gender.Female,
                 Name = Guid.NewGuid().ToString(),
-                Gender = Gender.Male,
-                Status = Status.Inactive
+                Status = Status.Active
             };
 
             //Act
-            var response = await GoRestClient.For<IUsersApi>().UpdateUserInfo(userId, userModel);
+            var response = await GoRestClient.For<IUsersApi>().UpdateUser(userId, userModelUpdate);
 
             // Assert
             response.Code.Should().Be(HttpStatusCode.OK);
             response.Meta.Should().BeNull();
             response.Data.Id.Should().BePositive();
             response.Data.Id.Equals(userId);
-            response.Data.Name.Should().Be(userModel.Name);
-            response.Data.Status.Should().Be(userModel.Status);
+            response.Data.Name.Should().Be(userModelUpdate.Name);
+            response.Data.Status.Should().Be(userModelUpdate.Status);
         }
     }
 }

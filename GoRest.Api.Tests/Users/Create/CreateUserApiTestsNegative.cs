@@ -12,7 +12,7 @@ namespace GoRest.Api.Tests.Users
     [TestFixture]
     public class CreateUserApiTestsNegative
     {
-        
+
         [Test]
         public async Task VerifyErrorMessageReceivedWhenCreateAlreadyCreatedUser()
         {
@@ -34,6 +34,48 @@ namespace GoRest.Api.Tests.Users
             response.Code.Should().Be(HttpStatusCode.UnprocessableEntity);
             response.Data[0].Field.Should().Be("email");
             response.Data[0].Message.Should().Be("has already been taken");
+        }
+
+        [Test]
+        public async Task VerifyUserIsNotCreatedWhenInvalidToken()
+        {
+            // Arrange
+            var userModel = new CreateUserModel()
+            {
+                Email = new Random().Next(1111, 5555) + "@gmail.com",
+                Gender = Gender.Female,
+                Name = Guid.NewGuid().ToString(),
+                Status = Status.Active
+            };
+
+            // Act
+            var response = await GoRestClient.ForInvalidToken<IUsersApi>().CreateUserNegativeAuth(userModel);
+
+            // Assert
+            response.Code.Should().Be(HttpStatusCode.Unauthorized);
+            response.Meta.Should().BeNull();
+            response.Data.Message.Should().Be("Authentication failed");
+        }
+
+        [Test]
+        public async Task VerifyUserIsNotCreatedWithoutToken()
+        {
+            // Arrange
+            var userModel = new CreateUserModel()
+            {
+                Email = new Random().Next(1111, 5555) + "@gmail.com",
+                Gender = Gender.Female,
+                Name = Guid.NewGuid().ToString(),
+                Status = Status.Active
+            };
+
+            // Act
+            var response = await GoRestClient.ForWithoutToken<IUsersApi>().CreateUserNegativeAuth(userModel);
+
+            // Assert
+            response.Code.Should().Be(HttpStatusCode.Unauthorized);
+            response.Meta.Should().BeNull();
+            response.Data.Message.Should().Be("Authentication failed");
         }
     }
 }

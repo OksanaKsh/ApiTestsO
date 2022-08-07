@@ -28,6 +28,26 @@ namespace GoRest.Api.Client.Client
                 .AddValidAuthHeader(AppSettings.AuthKey);
 
             return restClient;
+        }   
+        public static T ForInvalidToken<T>() where T : ISupportBearerAuth
+        {
+            var client = new GoRestClient() { };
+
+            var httpClient = client.CreateHttpClient(new Dictionary<string, string>());
+            var restClient = client.CreateRestClient<T>(httpClient)
+                .AddInValidAuthHeader(AppSettings.AuthKeyInvalid);
+
+            return restClient;
+        }  
+        public static T ForWithoutToken<T>() where T : ISupportBearerAuth
+        {
+            var client = new GoRestClient() { };
+
+            var httpClient = client.CreateHttpClient(new Dictionary<string, string>());
+            var restClient = client.CreateRestClient<T>(httpClient)
+                .WithoutToken();
+
+            return restClient;
         }
 
         private HttpClient CreateHttpClient(Dictionary<string, string> headers)

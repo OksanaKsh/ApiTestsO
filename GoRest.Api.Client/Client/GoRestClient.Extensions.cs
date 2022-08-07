@@ -15,5 +15,10 @@ namespace GoRest.Api.Client.Client
             client.AuthHeader = $"Bearer {token}";
             return client;
         }
+        public static T AddInValidAuthHeader<T>(this T client, string token) where T : ISupportBearerAuth
+        {
+            client.AuthHeader = $"Bearer {token}";
+            return client;
+        }
     }
 }
