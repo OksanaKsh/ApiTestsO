@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using API_Tests.Asserts;
 using FluentAssertions;
 using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
@@ -34,11 +35,7 @@ namespace GoRest.Api.Tests.Users
             var responseAfterAddingUser = await GoRestClient.For<IUsersApi>().GetAll();
 
             // Assert
-            responseAfterAddingUser.Code.Should().Be(HttpStatusCode.OK);
-            responseAfterAddingUser.Meta.Should().NotBeNull();
-            responseAfterAddingUser.Data.Should().NotBeEmpty();
-            responseAfterAddingUser.Meta.Pagination.Should().NotBeNull();
-            responseAfterAddingUser.Meta.Pagination.Total.Should().Be(initialTotal + 1);
+            UserAsserts.VerifyTotalIncreasedAfterAddingNewUser(responseAfterAddingUser, initialTotal);
         }
     }
 }

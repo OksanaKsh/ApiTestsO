@@ -6,6 +6,7 @@ using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System;
+using API_Tests.Asserts;
 
 namespace GoRest.Api.Tests.Users
 {
@@ -27,7 +28,7 @@ namespace GoRest.Api.Tests.Users
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModel);
             var userId = responseCreateUser.Data.Id.ToString();
 
-            // Arrange & Act
+            // Act
             var responseDeleteUser = await GoRestClient.For<IUsersApi>().DeleteUser(userId);
 
             // Assert
@@ -35,13 +36,7 @@ namespace GoRest.Api.Tests.Users
             responseDeleteUser.Data.Should().BeNull();
 
             var responseGetUser = await GoRestClient.For<IUsersApi>().GetUser(userId);
-            responseGetUser.Code.Should().Be(HttpStatusCode.NotFound);
-            responseGetUser.Meta.Should().BeNull(); ;
-            responseGetUser.Data.Id.Should().Be(0);
-            responseGetUser.Data.Email.Should().BeNull();
-            responseGetUser.Data.Name.Should().BeNull();
-            responseGetUser.Data.Gender.Equals(null);
-            responseGetUser.Data.Status.Equals(null);
+            UserAsserts.VerifyUserIsDeleted(responseGetUser);
         }
     }
 }

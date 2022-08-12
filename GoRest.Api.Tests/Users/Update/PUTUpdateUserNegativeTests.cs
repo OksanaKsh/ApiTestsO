@@ -6,17 +6,17 @@ using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System;
+using GoRest.Api.Client.Client.Models.UsersApi;
 
 namespace GoRest.Api.Tests.Users
 {
     [TestFixture]
-    public class PUTUpdateUserNegativeTests
+    public class PutUpdateUserNegativeTests
     {
         [Test]
         public async Task VerifyUserIsNotUpdatedWithAlreadyPresentInDBEmail()
         {
             // Arrange
-
             var userModelCreateFirstUser = new CreateUserModel()
             {
                 Email = new Random().Next(7777, 9999) + "@gmail.com",
@@ -39,13 +39,14 @@ namespace GoRest.Api.Tests.Users
             var responseCreateSecondUser = await GoRestClient.For<IUsersApi>().CreateUser(userModelCreateSecondUser);
             var userId = responseCreateSecondUser.Data.Id.ToString();
 
-            var userModelUpdateSecondUserWithEmilOfFirstUser = new UpdateUserModel()
+            var userModelUpdateSecondUserWithEmilOfFirstUser = new GeneralResponseModel()
             {
                 Email = userModelCreateFirstUser.Email,
                 Gender = Gender.Female,
                 Name = "Oksi",
                 Status = Status.Active
             };
+
             //Act
             var response = await GoRestClient.For<IUsersApi>().UpdateUserNegative(userId, userModelUpdateSecondUserWithEmilOfFirstUser);
 
@@ -61,7 +62,6 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyUserIsNotUpdatedWhenInvalidToken()
         {
             // Arrange
-
             var userModelCreate = new CreateUserModel()
             {
                 Email = new Random().Next(1111, 5555) + "@gmail.com",
@@ -73,7 +73,7 @@ namespace GoRest.Api.Tests.Users
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModelCreate);
             var userId = responseCreateUser.Data.Id.ToString();
 
-            var userModelUpdate = new UpdateUserModel()
+            var userModelUpdate = new GeneralResponseModel()
             {
                 Email = new Random().Next(1111, 5555) + "@gmail.com",
                 Gender = Gender.Female,
@@ -95,7 +95,6 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyUserIsNotUpdatedWithoutToken()
         {
             // Arrange
-
             var userModelCreate = new CreateUserModel()
             {
                 Email = new Random().Next(1111, 5555) + "@gmail.com",
@@ -107,7 +106,7 @@ namespace GoRest.Api.Tests.Users
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModelCreate);
             var userId = responseCreateUser.Data.Id.ToString();
 
-            var userModelUpdate = new UpdateUserModel()
+            var userModelUpdate = new GeneralResponseModel()
             {
                 Email = new Random().Next(1111, 5555) + "@gmail.com",
                 Gender = Gender.Female,

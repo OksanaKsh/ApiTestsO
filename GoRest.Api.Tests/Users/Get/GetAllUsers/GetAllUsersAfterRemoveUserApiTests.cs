@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using API_Tests.Asserts;
 using FluentAssertions;
 using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
@@ -37,11 +38,7 @@ namespace GoRest.Api.Tests.Users
             var responseAfterRemoveUser = await GoRestClient.For<IUsersApi>().GetAll();
 
             // Assert
-            responseAfterRemoveUser.Code.Should().Be(HttpStatusCode.OK);
-            responseAfterRemoveUser.Meta.Should().NotBeNull();
-            responseAfterRemoveUser.Data.Should().NotBeEmpty();
-            responseAfterRemoveUser.Meta.Pagination.Should().NotBeNull();
-            responseAfterRemoveUser.Meta.Pagination.Total.Should().Be(initialTotal - 1);
+            UserAsserts.VerifyTotalDecreasedAfterRemoveUser(responseAfterRemoveUser, initialTotal);
         }
     }
 }

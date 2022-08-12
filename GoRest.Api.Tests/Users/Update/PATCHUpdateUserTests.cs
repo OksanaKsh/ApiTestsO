@@ -6,11 +6,13 @@ using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System;
+using API_Tests.Asserts;
+using GoRest.Api.Client.Client.Models.UsersApi;
 
 namespace GoRest.Api.Tests.Users
 {
     [TestFixture]
-    public class PATCHUpdateUserTests
+    public class PatchUpdateUserTests
     {
         [Test]
         public async Task VerifyUserInfoIsUpdated()
@@ -26,7 +28,7 @@ namespace GoRest.Api.Tests.Users
 
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModelCreate);
             var userId = responseCreateUser.Data.Id.ToString();
-            var userModel = new UpdateUserModel()
+            var userModel = new GeneralResponseModel()
             {
                 Email = new Random().Next(1111, 5555) + "@gmail.com",
                 Name = Guid.NewGuid().ToString(),
@@ -38,12 +40,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.For<IUsersApi>().UpdateUserInfo(userId, userModel);
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.OK);
-            response.Meta.Should().BeNull();
-            response.Data.Id.Should().BePositive();
-            response.Data.Id.Equals(userId);
-            response.Data.Name.Should().Be(userModel.Name);
-            response.Data.Status.Should().Be(userModel.Status);
+            UserAsserts.VerifyUserInfoIsUpdated(response, userModel, userId);
         }
     }
 }

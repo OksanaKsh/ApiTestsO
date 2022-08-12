@@ -40,7 +40,7 @@ namespace GoRest.Api.Tests.Users
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModel);
             var userId = responseCreateUser.Data.Id.ToString();
 
-            // Arrange & Act
+            // Act
             var responseDeleteUser = await GoRestClient.ForWithoutToken<IUsersApi>().DeleteUserNegativeAuth(userId);
 
             // Assert
@@ -67,7 +67,7 @@ namespace GoRest.Api.Tests.Users
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModel);
             var userId = responseCreateUser.Data.Id.ToString();
 
-            // Arrange & Act
+            // Act
             var responseDeleteUser = await GoRestClient.ForInvalidToken<IUsersApi>().DeleteUserNegativeAuth(userId);
 
             // Assert

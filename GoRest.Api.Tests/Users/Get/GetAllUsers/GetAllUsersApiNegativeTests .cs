@@ -32,7 +32,6 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.ForWithoutToken<IUsersApi>().GetAllNegative();
 
             // Assert
-            // Assert
             response.Code.Should().Be(HttpStatusCode.OK);
             response.Meta.Pagination.Total.Should().Be(0);
             response.Meta.Pagination.Pages.Should().Be(0);

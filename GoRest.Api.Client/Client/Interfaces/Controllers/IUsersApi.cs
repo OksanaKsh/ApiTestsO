@@ -1,4 +1,5 @@
 ﻿using GoRest.Api.Client.Client.Models;
+using GoRest.Api.Client.Client.Models.UsersApi;
 using RestEase;
 using static GoRest.Api.Client.Client.GoRestClientExtensions;
 
@@ -37,16 +38,16 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
         Task<GeneralResponse<List<CreateUserErrorResponseModel>>> CreateUserNegative([Body] CreateUserModel userModel);
 
         [Put("users/{userId}")]
-        Task<GeneralResponse<GetUserResponseModel>> UpdateUser([Path] string userId, [Body] UpdateUserModel userModel);
+        Task<GeneralResponse<GetUserResponseModel>> UpdateUser([Path] string userId, [Body] GeneralResponseModel userModel);
 
         [Put("users/{userId}")]
-        Task<GeneralResponse<List<UpdateUserErrorResponseModel>>> UpdateUserNegative([Path] string userId, [Body] UpdateUserModel userModel);
+        Task<GeneralResponse<List<UpdateUserErrorResponseModel>>> UpdateUserNegative([Path] string userId, [Body] GeneralResponseModel userModel);
 
         [Put("users/{userId}")]
-        Task<GeneralResponse<AuthentificationFailedModel>> UpdateUserNegativeAuth([Path] string userId, [Body] UpdateUserModel userModel);
+        Task<GeneralResponse<AuthentificationFailedModel>> UpdateUserNegativeAuth([Path] string userId, [Body] GeneralResponseModel userModel);
 
         [Patch("users/{userId}")]
-        Task<GeneralResponse<GetUserResponseModel>> UpdateUserInfo([Path] string userId, [Body] UpdateUserModel userModel);
+        Task<GeneralResponse<GetUserResponseModel>> UpdateUserInfo([Path] string userId, [Body] GeneralResponseModel userModel);
 
         [Delete("users/{userId}")]
         Task<GeneralResponse<GetUserResponseModel>> DeleteUser([Path] string userId);
