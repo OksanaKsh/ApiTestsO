@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using GoRest.Api.Client.Client;
+using GoRest.Api.Client.Client.Builder;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using GoRest.Api.Client.Client.Models;
 using NUnit.Framework;
@@ -17,18 +18,11 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyErrorMessageReceivedWhenCreateAlreadyCreatedUser()
         {
             // Arrange
-            var userModel = new CreateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            await GoRestClient.For<IUsersApi>().CreateUser(userModel);
+            var createdUser = new CreateUserBuilder().Build();
+            await GoRestClient.For<IUsersApi>().CreateUser(createdUser);
 
             // Act
-            var response = await GoRestClient.For<IUsersApi>().CreateUserNegative(userModel);
+            var response = await GoRestClient.For<IUsersApi>().CreateUserNegative(createdUser);
 
             // Assert
             response.Code.Should().Be(HttpStatusCode.UnprocessableEntity);
@@ -39,17 +33,8 @@ namespace GoRest.Api.Tests.Users
         [Test]
         public async Task VerifyUserIsNotCreatedWhenInvalidToken()
         {
-            // Arrange
-            var userModel = new CreateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            // Act
-            var response = await GoRestClient.ForInvalidToken<IUsersApi>().CreateUserNegativeAuth(userModel);
+            // Arrange & Act
+            var response = await GoRestClient.ForInvalidToken<IUsersApi>().CreateUserNegativeAuth(new CreateUserBuilder().Build());
 
             // Assert
             response.Code.Should().Be(HttpStatusCode.Unauthorized);
@@ -60,17 +45,8 @@ namespace GoRest.Api.Tests.Users
         [Test]
         public async Task VerifyUserIsNotCreatedWithoutToken()
         {
-            // Arrange
-            var userModel = new CreateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            // Act
-            var response = await GoRestClient.ForWithoutToken<IUsersApi>().CreateUserNegativeAuth(userModel);
+            // Arrange & Act
+            var response = await GoRestClient.ForWithoutToken<IUsersApi>().CreateUserNegativeAuth(new CreateUserBuilder().Build());
 
             // Assert
             response.Code.Should().Be(HttpStatusCode.Unauthorized);
