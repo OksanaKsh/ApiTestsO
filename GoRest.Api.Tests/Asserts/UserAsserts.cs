@@ -64,5 +64,15 @@ namespace API_Tests.Asserts
             responseAfterRemoveUser.Meta.Pagination.Should().NotBeNull();
             responseAfterRemoveUser.Meta.Pagination.Total.Should().Be(initialTotal - 1);
         }
+
+        public static void VerifyThatGetAllUsersDoNotReturnInfoForUnauthorizedUser(GeneralResponse<List<GetUserErrorResponseModel>> response)
+        {
+            response.Code.Should().Be(HttpStatusCode.OK);
+            response.Meta.Pagination.Total.Should().Be(0);
+            response.Meta.Pagination.Pages.Should().Be(0);
+            response.Meta.Pagination.Page.Should().Be(1);
+            response.Meta.Pagination.Limit.Should().Be(10);
+            response.Data[0].Message.Should().BeEmpty();
+        }
     }
 }

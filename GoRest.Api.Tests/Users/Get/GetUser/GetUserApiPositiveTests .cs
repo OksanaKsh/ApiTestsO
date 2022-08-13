@@ -7,6 +7,7 @@ using NUnit.Framework;
 using GoRest.Api.Client.Client.Models;
 using System;
 using API_Tests.Asserts;
+using GoRest.Api.Client.Client.Builder;
 
 namespace GoRest.Api.Tests.Users
 {
@@ -17,15 +18,7 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyThatRequiredUserIsReturned()
         {
             // Arrange
-            var userModel = new CreateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModel);
+            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
 
             // Act

@@ -20,5 +20,25 @@ namespace GoRest.Api.Tests.Users
             // Assert
             UserAsserts.VerifyGetAllUsers(response);
         }
+
+        [Test]
+        public async Task VerifyGetAllUsersReturnsInfoWhenInvalidToken()
+        {
+            // Arrange & Act
+            var response = await GoRestClient.ForInvalidToken<IUsersApi>().GetAll();
+
+            // Assert
+            UserAsserts.VerifyGetAllUsers(response);
+        }
+
+        [Test]
+        public async Task VerifyGetAllUsersReturnsInfoWhenWithoutToken()
+        {
+            // Arrange & Act
+            var response = await GoRestClient.ForWithoutToken<IUsersApi>().GetAll();
+
+            // Assert
+            UserAsserts.VerifyGetAllUsers(response);
+        }
     }
 }

@@ -6,6 +6,7 @@ using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using GoRest.Api.Client.Client.Models;
 using System;
+using GoRest.Api.Client.Client.Builder;
 
 namespace GoRest.Api.Tests.Users
 {
@@ -56,15 +57,7 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyUserNotReturnsInfoWhenWithoutToken()
         {
             // Arrange
-            var userModel = new CreateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModel);
+            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
 
             // Act

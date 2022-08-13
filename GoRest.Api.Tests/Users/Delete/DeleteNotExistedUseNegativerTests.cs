@@ -6,6 +6,7 @@ using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System;
+using GoRest.Api.Client.Client.Builder;
 
 namespace GoRest.Api.Tests.Users
 {
@@ -29,15 +30,7 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyDeleteNotDoneWithoutToken()
         {
             // Arrange
-            var userModel = new CreateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModel);
+            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
 
             // Act
@@ -46,9 +39,6 @@ namespace GoRest.Api.Tests.Users
             // Assert
             responseDeleteUser.Code.Should().Be(HttpStatusCode.Unauthorized);
             responseDeleteUser.Data.Message.Should().Be("Authentication failed");
-
-            var responseGetUser = await GoRestClient.For<IUsersApi>().GetUser(userId);
-            responseGetUser.Code.Should().Be(HttpStatusCode.OK);
         }
 
         [Ignore("Bug: Received 404 instead of 401 when delete with invalid token")]
@@ -56,15 +46,7 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyDeleteNotPerformedWithInvalidToken()
         {
             // Arrange
-            var userModel = new CreateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModel);
+            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
 
             // Act
@@ -73,9 +55,6 @@ namespace GoRest.Api.Tests.Users
             // Assert
             responseDeleteUser.Code.Should().Be(HttpStatusCode.Unauthorized);
             responseDeleteUser.Data.Message.Should().Be("Authentication failed");
-
-            var responseGetUser = await GoRestClient.For<IUsersApi>().GetUser(userId);
-            responseGetUser.Code.Should().Be(HttpStatusCode.OK);
         }
     }
 }

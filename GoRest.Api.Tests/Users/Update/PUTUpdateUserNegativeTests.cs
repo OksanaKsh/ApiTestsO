@@ -7,6 +7,7 @@ using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System;
 using GoRest.Api.Client.Client.Models.UsersApi;
+using GoRest.Api.Client.Client.Builder;
 
 namespace GoRest.Api.Tests.Users
 {
@@ -17,31 +18,15 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyUserIsNotUpdatedWithAlreadyPresentInDBEmail()
         {
             // Arrange
-            var userModelCreateFirstUser = new CreateUserModel()
-            {
-                Email = new Random().Next(7777, 9999) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            var userModelCreateSecondUser = new CreateUserModel()
-            {
-                Email = new Random().Next(7777, 9999) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            var responseCreateFirstUser = await GoRestClient.For<IUsersApi>().CreateUser(userModelCreateFirstUser);
+            var responseCreateFirstUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             responseCreateFirstUser.Code.Should().Be(HttpStatusCode.Created);
 
-            var responseCreateSecondUser = await GoRestClient.For<IUsersApi>().CreateUser(userModelCreateSecondUser);
+            var responseCreateSecondUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());      
             var userId = responseCreateSecondUser.Data.Id.ToString();
 
             var userModelUpdateSecondUserWithEmilOfFirstUser = new GeneralResponseModel()
             {
-                Email = userModelCreateFirstUser.Email,
+                Email = responseCreateFirstUser.Data.Email,
                 Gender = Gender.Female,
                 Name = "Oksi",
                 Status = Status.Active
@@ -57,20 +42,12 @@ namespace GoRest.Api.Tests.Users
             response.Data[0].Message.Should().Be("has already been taken");
         }
 
-        [Ignore("Bug: Expected 401 received 404")]
+        //[Ignore("Bug: Expected 401 received 404")]
         [Test]
         public async Task VerifyUserIsNotUpdatedWhenInvalidToken()
         {
             // Arrange
-            var userModelCreate = new CreateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModelCreate);
+            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
 
             var userModelUpdate = new GeneralResponseModel()
@@ -94,16 +71,7 @@ namespace GoRest.Api.Tests.Users
         [Test]
         public async Task VerifyUserIsNotUpdatedWithoutToken()
         {
-            // Arrange
-            var userModelCreate = new CreateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModelCreate);
+            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
 
             var userModelUpdate = new GeneralResponseModel()
