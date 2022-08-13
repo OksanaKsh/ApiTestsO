@@ -25,6 +25,7 @@ namespace GoRest.Api.Tests.Users
             // Assert
             response.Code.Should().Be(HttpStatusCode.NotFound);
         }
+
         [Ignore("Bug: Received 404 instead of 401 when delete without token")]
         [Test]
         public async Task VerifyDeleteNotDoneWithoutToken()

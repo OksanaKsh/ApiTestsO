@@ -15,11 +15,8 @@ namespace GoRest.Api.Tests.Users
     {
         [TestCase(0)]
         [TestCase(-1)]
-        [Test]
-        public async Task VerifyThatRequiredUserIsReturned(int userId)
+        public async Task VerifyThatRequiredUserIsNotReturned(int userId)
         {
-            // Arrange
-
             // Arrange & Act
             var response = await GoRestClient.For<IUsersApi>().GetUserNegative(userId.ToString());
 
