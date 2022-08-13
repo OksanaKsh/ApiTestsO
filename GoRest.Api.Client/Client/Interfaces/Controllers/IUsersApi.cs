@@ -10,12 +10,6 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
 
     public interface IUsersApi : ISupportBearerAuth
     {
-
-        [Header("X-Pagination-Total")]
-        [Header("X-Pagination-Pages")]
-        [Header("X-Pagination-Page")]
-        [Header("X-Pagination-Limit")]
-
         [Get("users/")]
         Task<GeneralResponse<List<GetUserResponseModel>>> GetAll();
 
