@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace GoRest.Api.Client.Client.Models
 {
     public class UpdateUserModel
     {
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Email { get; set; }
 
         public Gender Gender { get; set; }
