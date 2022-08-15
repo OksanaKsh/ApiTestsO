@@ -1,13 +1,9 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using System.Threading.Tasks;
 using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
-using System;
 using API_Tests.Asserts;
-using GoRest.Api.Client.Client.Models.UsersApi;
 using GoRest.Api.Client.Client.Builder;
 
 namespace GoRest.Api.Tests.Users
@@ -21,16 +17,9 @@ namespace GoRest.Api.Tests.Users
             // Arrange
             var responseCreateUser= await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
+            var userModel = new PatchUpdateUserBuilder().Build(Gender.Male, Status.Inactive);
 
-            var userModel = new GeneralResponseModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Name = Guid.NewGuid().ToString(),
-                Gender = Gender.Male,
-                Status = Status.Inactive
-            };
-
-            //Act
+            // Act
             var response = await GoRestClient.For<IUsersApi>().UpdateUserInfo(userId, userModel);
 
             // Assert

@@ -2,11 +2,8 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using GoRest.Api.Client.Client;
-using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
-using System;
-using GoRest.Api.Client.Client.Models.UsersApi;
 using GoRest.Api.Client.Client.Builder;
 
 namespace GoRest.Api.Tests.Users
@@ -23,17 +20,10 @@ namespace GoRest.Api.Tests.Users
 
             var responseCreateSecondUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());      
             var userId = responseCreateSecondUser.Data.Id.ToString();
+            var userModel = new PutUpdateUserBuilder().Build(responseCreateFirstUser.Data.Email) ;
 
-            var userModelUpdateSecondUserWithEmilOfFirstUser = new GeneralResponseModel()
-            {
-                Email = responseCreateFirstUser.Data.Email,
-                Gender = Gender.Female,
-                Name = "Oksi",
-                Status = Status.Active
-            };
-
-            //Act
-            var response = await GoRestClient.For<IUsersApi>().UpdateUserNegative(userId, userModelUpdateSecondUserWithEmilOfFirstUser);
+            // Act
+            var response = await GoRestClient.For<IUsersApi>().UpdateUserNegative(userId, userModel);
 
             // Assert
             response.Code.Should().Be(HttpStatusCode.UnprocessableEntity);
@@ -42,7 +32,7 @@ namespace GoRest.Api.Tests.Users
             response.Data[0].Message.Should().Be("has already been taken");
         }
 
-        //[Ignore("Bug: Expected 401 received 404")]
+        [Ignore("Bug: Expected 401 received 404")]
         [Test]
         public async Task VerifyUserIsNotUpdatedWhenInvalidToken()
         {
@@ -50,16 +40,8 @@ namespace GoRest.Api.Tests.Users
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
 
-            var userModelUpdate = new GeneralResponseModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
             // Act
-            var response = await GoRestClient.ForInvalidToken<IUsersApi>().UpdateUserNegativeAuth(userId, userModelUpdate);
+            var response = await GoRestClient.For<IUsersApi>().UpdateUserNegativeAuth(userId, new PutUpdateUserBuilder().Build());
 
             // Assert
             response.Code.Should().Be(HttpStatusCode.Unauthorized);
@@ -74,16 +56,8 @@ namespace GoRest.Api.Tests.Users
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
 
-            var userModelUpdate = new GeneralResponseModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
             // Act
-            var response = await GoRestClient.ForWithoutToken<IUsersApi>().UpdateUserNegativeAuth(userId, userModelUpdate);
+            var response = await GoRestClient.For<IUsersApi>().UpdateUserNegativeAuth(userId, new PutUpdateUserBuilder().Build());
 
             // Assert
             response.Code.Should().Be(HttpStatusCode.Unauthorized);

@@ -8,7 +8,7 @@ namespace API_Tests.Asserts
 {
     public static class UserAsserts
     {
-        public static void VerifyUserInfoIsUpdated(GeneralResponse<GetUserResponseModel> response, GeneralResponseModel userModel, string userId)
+        public static void VerifyUserInfoIsUpdated(GeneralResponse<GetUserResponseModel> response, UpdateUserModel userModel, string userId)
         {
             response.Code.Should().Be(HttpStatusCode.OK);
             response.Meta.Should().BeNull();

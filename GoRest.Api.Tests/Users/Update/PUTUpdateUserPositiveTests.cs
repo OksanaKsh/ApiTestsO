@@ -21,15 +21,8 @@ namespace GoRest.Api.Tests.Users
             // Arrange
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
-
-            var userModelUpdate = new GeneralResponseModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
+            var userModelUpdate = new PutUpdateUserBuilder().Build();
+            
             //Act
             var response = await GoRestClient.For<IUsersApi>().UpdateUser(userId, userModelUpdate);
 
