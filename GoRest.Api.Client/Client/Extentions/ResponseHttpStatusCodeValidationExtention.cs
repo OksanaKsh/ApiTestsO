@@ -10,7 +10,7 @@ namespace GoRest.Api.Client.Client.Extentions
         {
             response.Code.Should().Be(HttpStatusCode.OK);
         } 
-
+     
         public static void ShouldBeOK(this GeneralResponse<GetUserResponseModel> response)
         {
             response.Code.Should().Be(HttpStatusCode.OK);

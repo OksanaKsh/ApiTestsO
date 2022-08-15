@@ -1,11 +1,7 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using System.Threading.Tasks;
 using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
-using GoRest.Api.Client.Client.Models;
-using System;
 using API_Tests.Asserts;
 using GoRest.Api.Client.Client.Builder;
 

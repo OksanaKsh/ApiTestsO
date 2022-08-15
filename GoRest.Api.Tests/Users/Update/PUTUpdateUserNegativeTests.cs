@@ -17,7 +17,7 @@ namespace GoRest.Api.Tests.Users
         {
             // Arrange
             var responseCreateFirstUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
-            responseCreateFirstUser.Code.Should().Be(HttpStatusCode.Created);
+            responseCreateFirstUser.ShouldBeCreated();
 
             var responseCreateSecondUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());      
             var userId = responseCreateSecondUser.Data.Id.ToString();

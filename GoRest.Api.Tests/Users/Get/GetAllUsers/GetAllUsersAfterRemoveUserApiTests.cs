@@ -5,6 +5,7 @@ using API_Tests.Asserts;
 using FluentAssertions;
 using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Builder;
+using GoRest.Api.Client.Client.Extentions;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using GoRest.Api.Client.Client.Models;
 using NUnit.Framework;
@@ -21,7 +22,7 @@ namespace GoRest.Api.Tests.Users
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
             var responseGetUser = await GoRestClient.For<IUsersApi>().GetAll();
-            responseGetUser.Code.Should().Be(HttpStatusCode.OK);
+            responseGetUser.ShouldBeOK();
             var initialTotal = responseGetUser.Meta.Pagination.Total;
 
             // Act

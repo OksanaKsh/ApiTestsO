@@ -1,11 +1,8 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
-using GoRest.Api.Client.Client.Models;
-using System;
 using GoRest.Api.Client.Client.Builder;
 using GoRest.Api.Client.Client.Extentions;
 
@@ -31,15 +28,7 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyGetUserNotReturnsInfoWhenInvalidToken()
         {
             // Arrange
-            var userModel = new CreateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(userModel);
+            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build()); ;
             var userId = responseCreateUser.Data.Id.ToString();
 
             // Act
