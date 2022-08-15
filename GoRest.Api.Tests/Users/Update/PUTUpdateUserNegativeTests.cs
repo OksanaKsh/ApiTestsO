@@ -5,6 +5,7 @@ using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using GoRest.Api.Client.Client.Builder;
+using GoRest.Api.Client.Client.Extentions;
 
 namespace GoRest.Api.Tests.Users
 {
@@ -26,7 +27,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.For<IUsersApi>().UpdateUserNegative(userId, userModel);
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.UnprocessableEntity);
+            response.ShouldBeUnprocessableEntity();
             response.Meta.Should().BeNull();
             response.Data[0].Field.Should().Be("email");
             response.Data[0].Message.Should().Be("has already been taken");
@@ -44,7 +45,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.For<IUsersApi>().UpdateUserNegativeAuth(userId, new PutUpdateUserBuilder().Build());
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.Unauthorized);
+            response.ShouldBeUnathorized();
             response.Meta.Should().BeNull();
             response.Data.Message.Should().Be("Authentication failed");
         }
@@ -60,7 +61,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.For<IUsersApi>().UpdateUserNegativeAuth(userId, new PutUpdateUserBuilder().Build());
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.Unauthorized);
+            response.ShouldBeUnathorized();
             response.Meta.Should().BeNull();
             response.Data.Message.Should().Be("Authentication failed");
         }

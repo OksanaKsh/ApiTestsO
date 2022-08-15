@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
+using GoRest.Api.Client.Client.Extentions;
 using GoRest.Api.Client.Client.Models;
-using GoRest.Api.Client.Client.Models.UsersApi;
 using System.Collections.Generic;
 using System.Net;
 
@@ -10,7 +10,7 @@ namespace API_Tests.Asserts
     {
         public static void VerifyUserInfoIsUpdated(GeneralResponse<GetUserResponseModel> response, UpdateUserModel userModel, string userId)
         {
-            response.Code.Should().Be(HttpStatusCode.OK);
+            response.ShouldBeOK();
             response.Meta.Should().BeNull();
             response.Data.Id.Equals(userId);
             response.Data.Name.Should().Be(userModel.Name);
@@ -18,7 +18,7 @@ namespace API_Tests.Asserts
         }
         public static void VerifyGetUserInfo(GeneralResponse<GetUserResponseModel> response, string userId)
         {
-            response.Code.Should().Be(HttpStatusCode.OK);
+            response.ShouldBeOK();
             response.Meta.Should().BeNull(); ;
             response.Data.Id.Should().BePositive();
             response.Data.Id.Equals(userId);
@@ -26,8 +26,8 @@ namespace API_Tests.Asserts
             response.Data.Status.Should().BeOneOf(Status.Inactive, Status.Active);
         }
         public static void VerifyGetAllUsers(GeneralResponse<List<GetUserResponseModel>> response)
-        {
-            response.Code.Should().Be(HttpStatusCode.OK);
+        {  
+            response.ShouldBeOK();
             response.Meta.Should().NotBeNull();
             response.Data.Should().NotBeEmpty();
 
@@ -39,7 +39,7 @@ namespace API_Tests.Asserts
         }
         public static void VerifyUserIsDeleted(GeneralResponse<GetUserResponseModel> responseGetUser)
         {
-            responseGetUser.Code.Should().Be(HttpStatusCode.NotFound);
+            responseGetUser.ShouldBeNotFound();
             responseGetUser.Meta.Should().BeNull(); ;
             responseGetUser.Data.Id.Should().Be(0);
             responseGetUser.Data.Email.Should().BeNull();
@@ -50,7 +50,7 @@ namespace API_Tests.Asserts
 
         public static void VerifyTotalIncreasedAfterAddingNewUser(GeneralResponse<List<GetUserResponseModel>> responseAfterAddingUser, int initialTotal)
         {
-            responseAfterAddingUser.Code.Should().Be(HttpStatusCode.OK);
+            responseAfterAddingUser.ShouldBeOK();
             responseAfterAddingUser.Meta.Should().NotBeNull();
             responseAfterAddingUser.Data.Should().NotBeEmpty();
             responseAfterAddingUser.Meta.Pagination.Should().NotBeNull();
@@ -58,7 +58,7 @@ namespace API_Tests.Asserts
         }
         public static void VerifyTotalDecreasedAfterRemoveUser(GeneralResponse<List<GetUserResponseModel>> responseAfterRemoveUser, int initialTotal)
         {
-            responseAfterRemoveUser.Code.Should().Be(HttpStatusCode.OK);
+            responseAfterRemoveUser.ShouldBeOK();
             responseAfterRemoveUser.Meta.Should().NotBeNull();
             responseAfterRemoveUser.Data.Should().NotBeEmpty();
             responseAfterRemoveUser.Meta.Pagination.Should().NotBeNull();
@@ -67,7 +67,7 @@ namespace API_Tests.Asserts
 
         public static void VerifyThatGetAllUsersDoNotReturnInfoForUnauthorizedUser(GeneralResponse<List<GetUserErrorResponseModel>> response)
         {
-            response.Code.Should().Be(HttpStatusCode.OK);
+            response.ShouldBeOK();
             response.Meta.Pagination.Total.Should().Be(0);
             response.Meta.Pagination.Pages.Should().Be(0);
             response.Meta.Pagination.Page.Should().Be(1);

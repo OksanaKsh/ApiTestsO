@@ -1,12 +1,10 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentAssertions;
 using GoRest.Api.Client.Client;
-using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
-using System;
 using GoRest.Api.Client.Client.Builder;
+using GoRest.Api.Client.Client.Extentions;
 
 namespace GoRest.Api.Tests.Users
 {
@@ -23,7 +21,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.For<IUsersApi>().DeleteUser(userId);
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.NotFound);
+            response.ShouldBeNotFound();
         }
 
         [Ignore("Bug: Received 404 instead of 401 when delete without token")]
@@ -38,7 +36,7 @@ namespace GoRest.Api.Tests.Users
             var responseDeleteUser = await GoRestClient.ForWithoutToken<IUsersApi>().DeleteUserNegativeAuth(userId);
 
             // Assert
-            responseDeleteUser.Code.Should().Be(HttpStatusCode.Unauthorized);
+            responseDeleteUser.ShouldBeUnathorized();
             responseDeleteUser.Data.Message.Should().Be("Authentication failed");
         }
 
@@ -54,7 +52,7 @@ namespace GoRest.Api.Tests.Users
             var responseDeleteUser = await GoRestClient.ForInvalidToken<IUsersApi>().DeleteUserNegativeAuth(userId);
 
             // Assert
-            responseDeleteUser.Code.Should().Be(HttpStatusCode.Unauthorized);
+            responseDeleteUser.ShouldBeUnathorized();
             responseDeleteUser.Data.Message.Should().Be("Authentication failed");
         }
     }

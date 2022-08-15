@@ -7,6 +7,7 @@ using NUnit.Framework;
 using GoRest.Api.Client.Client.Models;
 using System;
 using GoRest.Api.Client.Client.Builder;
+using GoRest.Api.Client.Client.Extentions;
 
 namespace GoRest.Api.Tests.Users
 {
@@ -21,7 +22,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.For<IUsersApi>().GetUserNegative(userId.ToString());
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.NotFound);
+            response.ShouldBeNotFound();
             response.Meta.Should().BeNull(); ;
             response.Data.Message.Should().Be("Resource not found");
         }
@@ -45,7 +46,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.ForInvalidToken<IUsersApi>().GetUserNegative(userId);
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.NotFound);
+            response.ShouldBeNotFound();
             response.Meta.Should().BeNull();
             response.Data.Message.Should().Be("Resource not found");
         }
@@ -61,7 +62,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.ForWithoutToken<IUsersApi>().GetUserNegative(userId);
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.NotFound);
+            response.ShouldBeNotFound();
             response.Meta.Should().BeNull();
             response.Data.Message.Should().Be("Resource not found");
         }

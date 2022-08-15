@@ -1,11 +1,10 @@
-using System;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Builder;
+using GoRest.Api.Client.Client.Extentions;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
-using GoRest.Api.Client.Client.Models;
 using NUnit.Framework;
 
 namespace GoRest.Api.Tests.Users
@@ -25,7 +24,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.For<IUsersApi>().CreateUserNegative(createdUser);
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.UnprocessableEntity);
+            response.ShouldBeUnprocessableEntity();
             response.Data[0].Field.Should().Be("email");
             response.Data[0].Message.Should().Be("has already been taken");
         }
@@ -37,7 +36,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.ForInvalidToken<IUsersApi>().CreateUserNegativeAuth(new CreateUserBuilder().Build());
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.Unauthorized);
+            response.ShouldBeUnathorized();
             response.Meta.Should().BeNull();
             response.Data.Message.Should().Be("Authentication failed");
         }
@@ -49,7 +48,7 @@ namespace GoRest.Api.Tests.Users
             var response = await GoRestClient.ForWithoutToken<IUsersApi>().CreateUserNegativeAuth(new CreateUserBuilder().Build());
 
             // Assert
-            response.Code.Should().Be(HttpStatusCode.Unauthorized);
+            response.ShouldBeUnathorized();
             response.Meta.Should().BeNull();
             response.Data.Message.Should().Be("Authentication failed");
         }
