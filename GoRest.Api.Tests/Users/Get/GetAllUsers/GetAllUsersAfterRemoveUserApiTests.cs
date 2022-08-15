@@ -21,12 +21,11 @@ namespace GoRest.Api.Tests.Users
             // Arrange             
             var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
             var userId = responseCreateUser.Data.Id.ToString();
-            var responseGetUser = await GoRestClient.For<IUsersApi>().GetAll();
-            responseGetUser.ShouldBeOK();
+            var responseGetUser = GoRestClient.For<IUsersApi>().GetAll().ShouldBeOK(); ;
             var initialTotal = responseGetUser.Meta.Pagination.Total;
 
             // Act
-            await GoRestClient.For<IUsersApi>().DeleteUser(userId.ToString());
+            await GoRestClient.For<IUsersApi>().DeleteUser(userId);
             var responseAfterRemoveUser = await GoRestClient.For<IUsersApi>().GetAll();
 
             // Assert

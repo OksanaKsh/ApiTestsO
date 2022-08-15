@@ -20,11 +20,6 @@ namespace GoRest.Api.Client.Client.Builder
         {
             return this._createUser;
         } 
-        public UpdateUserModel Build(string email)
-        {
-            this._createUser.Email = email;
-            return this._createUser;
-        }
 
         public UpdateUserModel GetDefault()
         {

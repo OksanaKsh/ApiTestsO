@@ -1,7 +1,5 @@
 ﻿using GoRest.Api.Client.Client.Models;
-using GoRest.Api.Client.Client.Models.UsersApi;
 using RestEase;
-using static GoRest.Api.Client.Client.GoRestClientExtensions;
 
 namespace GoRest.Api.Client.Client.Interfaces.Controllers
 {
@@ -10,6 +8,7 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
 
     public interface IUsersApi : ISupportBearerAuth
     {
+        #region Get User(s)
         [Get("users/")]
         Task<GeneralResponse<List<GetUserResponseModel>>> GetAll();
 
@@ -21,7 +20,9 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
 
         [Get("users/{userId}")]
         Task<GeneralResponse<GetUserErrorResponseModel>> GetUserNegative([Path] string userId);
+        #endregion
 
+        #region Post User
         [Post("users/")]
         Task<GeneralResponse<GetUserResponseModel>> CreateUser([Body] CreateUserModel userModel);
 
@@ -30,7 +31,9 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
 
         [Post("users/")]
         Task<GeneralResponse<List<CreateUserErrorResponseModel>>> CreateUserNegative([Body] CreateUserModel userModel);
+        #endregion
 
+        #region Put User
         [Put("users/{userId}")]
         Task<GeneralResponse<GetUserResponseModel>> UpdateUser([Path] string userId, [Body] UpdateUserModel userModel);
 
@@ -39,14 +42,19 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
 
         [Put("users/{userId}")]
         Task<GeneralResponse<AuthentificationFailedModel>> UpdateUserNegativeAuth([Path] string userId, [Body] UpdateUserModel userModel);
+        #endregion
 
+        #region Patch User
         [Patch("users/{userId}")]
-        Task<GeneralResponse<GetUserResponseModel>> UpdateUserInfo([Path] string userId, [Body] UpdateUserModel userModel);
+        Task<GeneralResponse<GetUserResponseModel>> UpdateUserInfo([Path] string userId, [Body] PatchUpdateUserInfoModel userModel);
+        #endregion
 
+        #region Delete User
         [Delete("users/{userId}")]
         Task<GeneralResponse<GetUserResponseModel>> DeleteUser([Path] string userId);
 
         [Delete("users/{userId}")]
         Task<GeneralResponse<AuthentificationFailedModel>> DeleteUserNegativeAuth([Path] string userId);
+        #endregion
     }
 }

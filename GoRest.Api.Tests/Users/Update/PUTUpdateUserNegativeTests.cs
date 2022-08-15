@@ -16,15 +16,17 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyUserIsNotUpdatedWithAlreadyPresentInDBEmail()
         {
             // Arrange
-            var responseCreateFirstUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
-            responseCreateFirstUser.ShouldBeCreated();
-
+            var responseCreateFirstUser = GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build()).ShouldBeCreated();
             var responseCreateSecondUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());      
             var userId = responseCreateSecondUser.Data.Id.ToString();
-            var userModel = new PutUpdateUserBuilder().Build(responseCreateFirstUser.Data.Email) ;
+            var userUpdateModel = new PutUpdateUserBuilder().With(x =>
+            {
+                x.Email = responseCreateFirstUser.Data.Email;
+            }
+            ).Build() ;
 
             // Act
-            var response = await GoRestClient.For<IUsersApi>().UpdateUserNegative(userId, userModel);
+            var response = await GoRestClient.For<IUsersApi>().UpdateUserNegative(userId, userUpdateModel);
 
             // Assert
             response.ShouldBeUnprocessableEntity();

@@ -1,12 +1,7 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using System.Threading.Tasks;
 using GoRest.Api.Client.Client;
-using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
-using System;
-using GoRest.Api.Client.Client.Models.UsersApi;
 using API_Tests.Asserts;
 using GoRest.Api.Client.Client.Builder;
 
@@ -24,10 +19,10 @@ namespace GoRest.Api.Tests.Users
             var userModelUpdate = new PutUpdateUserBuilder().Build();
             
             //Act
-            var response = await GoRestClient.For<IUsersApi>().UpdateUser(userId, userModelUpdate);
+            var responseUpdateUser = await GoRestClient.For<IUsersApi>().UpdateUser(userId, userModelUpdate);
 
             // Assert
-            UserAsserts.VerifyUserInfoIsUpdated(response, userModelUpdate, userId);
+            UserAsserts.VerifyUserIsUpdated(responseUpdateUser, userModelUpdate, userId);
         }
     }
 }

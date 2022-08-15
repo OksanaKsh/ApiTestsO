@@ -4,41 +4,22 @@ namespace GoRest.Api.Client.Client.Builder
 {
     public class PatchUpdateUserBuilder
     {
-        private readonly UpdateUserModel _createUser;
+        private readonly PatchUpdateUserInfoModel _updateUser;
+
         public PatchUpdateUserBuilder()
         {
-            this._createUser = GetDefault();
+             this._updateUser = new PatchUpdateUserInfoModel();           
         } 
 
-        public PatchUpdateUserBuilder With(Action<UpdateUserModel> updateAction)
+        public PatchUpdateUserBuilder With(Action<PatchUpdateUserInfoModel> updateAction)
         {
-            updateAction.Invoke(this._createUser);
+            updateAction.Invoke(this._updateUser);
             return this;
-        }
+        } 
 
-        public UpdateUserModel Build()
+        public PatchUpdateUserInfoModel Build()
         {
-            return this._createUser;
-        }
-
-        public UpdateUserModel Build(Gender gender, Status status)
-        {
-            this._createUser.Gender = gender;
-            this._createUser.Status = status;
-            return this._createUser;
-        }
-
-        public UpdateUserModel GetDefault()
-        {
-            var model = new UpdateUserModel()
-            {
-                Email = new Random().Next(1111, 5555) + "@gmail.com",
-                Gender = Gender.Female,
-                Name = Guid.NewGuid().ToString(),
-                Status = Status.Active
-            };
-
-            return model;
+            return this._updateUser;
         }
     }
 }

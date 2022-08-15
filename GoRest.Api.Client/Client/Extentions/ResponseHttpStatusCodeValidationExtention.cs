@@ -6,16 +6,22 @@ namespace GoRest.Api.Client.Client.Extentions
 {
     public static class ResponseHttpStatusCodeValidationExtention 
     {
-        public static void ShouldBeOK <TResponse>(this GeneralResponse<TResponse> response)
+        public static void ShouldBeOK<TResponse>(this GeneralResponse<TResponse> response)
         {
             response.Code.Should().Be(HttpStatusCode.OK);
-        } 
-        
-        public static void ShouldBeCreated<TResponse>(this GeneralResponse<TResponse> response)
-        {
-            response.Code.Should().Be(HttpStatusCode.Created);
         }
-        
+        public static  GeneralResponse<List<TResponse>> ShouldBeOK <TResponse>(this Task<GeneralResponse<List<TResponse>>> response)
+        {
+            response.Result.Code.Should().Be(HttpStatusCode.OK);
+            return  response.Result;
+        }
+
+        public static GeneralResponse<TResponse> ShouldBeCreated<TResponse>(this Task<GeneralResponse<TResponse>> response)
+        {
+            response.Result.Code.Should().Be(HttpStatusCode.Created);
+            return response.Result;    
+        }
+
         public static void ShouldBeNoContent<TResponse>(this GeneralResponse<TResponse> response)
         {
             response.Code.Should().Be(HttpStatusCode.NoContent);

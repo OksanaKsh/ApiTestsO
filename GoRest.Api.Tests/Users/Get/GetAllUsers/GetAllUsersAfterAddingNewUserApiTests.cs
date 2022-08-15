@@ -16,8 +16,7 @@ namespace GoRest.Api.Tests.Users
         {
 
             // Arrange
-            var response = await GoRestClient.For<IUsersApi>().GetAll();
-            response.ShouldBeOK();
+            var response = GoRestClient.For<IUsersApi>().GetAll().ShouldBeOK();
             var initialTotal = response.Meta.Pagination.Total;
             await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
 

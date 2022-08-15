@@ -15,15 +15,21 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyUserInfoIsUpdated()
         {
             // Arrange
-            var responseCreateUser= await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
-            var userId = responseCreateUser.Data.Id.ToString();
-            var userModel = new PatchUpdateUserBuilder().Build(Gender.Male, Status.Inactive);
+            var responseCreateUser = await GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
+            var userId = responseCreateUser.Data.Id.ToString();   
+
+            var updateUserModel = new PatchUpdateUserBuilder().With(x =>
+            {
+                x.Gender = Gender.Male;
+                x.Status = Status.Inactive;
+            }
+            ).Build();
 
             // Act
-            var response = await GoRestClient.For<IUsersApi>().UpdateUserInfo(userId, userModel);
+            var responseUpdateUser = await GoRestClient.For<IUsersApi>().UpdateUserInfo(userId, updateUserModel);
 
             // Assert
-            UserAsserts.VerifyUserInfoIsUpdated(response, userModel, userId);
+            UserAsserts.VerifyUserInfoIsUpdated(responseCreateUser, responseUpdateUser, updateUserModel, userId);
         }
     }
 }

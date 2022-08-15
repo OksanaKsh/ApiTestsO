@@ -5,6 +5,7 @@ namespace GoRest.Api.Client.Client.Builder
     public class CreateUserBuilder
     {
         private readonly CreateUserModel _createUser;
+        
         public CreateUserBuilder()
         {
             this._createUser = GetDefault();
