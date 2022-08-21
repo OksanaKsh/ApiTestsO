@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace API_Tests.Posts.Create.CreatePostNegativeTests
 {
+    [Parallelizable]
     [TestFixture]
     public class CreatePostNegativeTests
     {

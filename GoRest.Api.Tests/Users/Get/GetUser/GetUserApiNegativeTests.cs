@@ -8,6 +8,7 @@ using GoRest.Api.Client.Client.Extentions;
 
 namespace GoRest.Api.Tests.Users
 {
+    [Parallelizable]
     [TestFixture]
     public class GetUserWithInvalidIdTests
     {

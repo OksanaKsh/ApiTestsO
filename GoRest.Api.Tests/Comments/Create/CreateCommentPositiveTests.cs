@@ -2,7 +2,6 @@
 using API_Tests.Helpers;
 using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Builder;
-using GoRest.Api.Client.Client.Builder.PostsApi;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System.Threading.Tasks;
@@ -10,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace API_Tests.Comments.Create
 {
+    [Parallelizable]
     [TestFixture]
     public class CreateCommentPositiveTests
     {

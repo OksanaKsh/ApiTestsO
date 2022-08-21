@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace API_Tests.Comments.Get
 {
+    [Parallelizable]
     [TestFixture]
     public class GetCommentPositiveTest
     {

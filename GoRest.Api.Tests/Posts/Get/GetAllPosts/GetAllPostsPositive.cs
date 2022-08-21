@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace API_Tests.Posts.Get.GetAllPosts
 {
+    [Parallelizable]
     [TestFixture]
     public class GetAllPostsPositiveTests
     {
