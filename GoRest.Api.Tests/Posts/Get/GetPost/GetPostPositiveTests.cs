@@ -10,7 +10,7 @@ namespace API_Tests.Posts.Get.GetPost
     [TestFixture]
     public class GetPostPositiveTests
     {
-        //[Ignore ("Bug:Cannot get the created for user post")]
+        [Ignore ("Bug:Cannot get the created for user post")]
         [Test]
         public async Task VerifyGetPostReturnsInfo()
         {

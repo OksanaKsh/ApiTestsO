@@ -1,7 +1,9 @@
 ﻿using API_Tests.Asserts;
 using API_Tests.Helpers;
+using FluentAssertions;
 using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Builder.PostsApi;
+using GoRest.Api.Client.Client.Extentions;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System.Threading.Tasks;
@@ -78,5 +80,33 @@ namespace API_Tests.Posts.Create.CreatePostNegativeTests
             PostsAsserts.VerifyPostForNotExistedUserIsNotCreated(response);
         }
 
+        [Test]
+        public async Task VerifyPostIsNotCreatedWhenInvalidToken()
+        {
+            // Arrange
+            var userId = await new CreateEntities().CreateUser();
+
+            // & Act
+            var response = await GoRestClient.ForInvalidToken<IPostsApi>().CreatePostNegativeAuth(new CreatePostBuilder().Build(), userId);
+
+            // Assert
+            response.ShouldBeUnathorized();
+            response.Meta.Should().BeNull();
+            response.Data.Message.Should().Be("Authentication failed");
+        }
+
+        [Test]
+        public async Task VerifyPostIsNotCreatedWithoutToken()
+        {
+            var userId = await new CreateEntities().CreateUser();
+
+            // & Act
+            var response = await GoRestClient.ForWithoutToken<IPostsApi>().CreatePostNegativeAuth(new CreatePostBuilder().Build(), userId);
+
+            // Assert
+            response.ShouldBeUnathorized();
+            response.Meta.Should().BeNull();
+            response.Data.Message.Should().Be("Authentication failed");
+        }
     }
 }

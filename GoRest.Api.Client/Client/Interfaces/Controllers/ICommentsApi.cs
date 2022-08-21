@@ -28,7 +28,7 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
         [Post("posts/{postId}/comments")]
         Task<GeneralResponse<GetCommentResponseModel>> CreateComment([Body] CreateCommentModel postModel, [Path] string postId);
 
-        [Post("posts /{postId}/comments")]
+        [Post("posts/{postId}/comments")]
         Task<GeneralResponse<AuthentificationFailedModel>> CreateCommentNegativeAuth([Body] CreateCommentModel postModel, [Path] string postId);
 
         [Post("posts/{postId}/comments")]

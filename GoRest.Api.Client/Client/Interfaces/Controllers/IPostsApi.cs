@@ -14,7 +14,7 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
         Task<GeneralResponse<List<GetPostResponseModel>>> GetAllPosts([Path] string userId);
 
         [Get("users/{userId}/posts/")]
-        Task<GeneralResponse<GetPostErrorResponseModel>> GetAllPOstsNegative([Path] string userId);
+        Task<GeneralResponse<GetPostErrorResponseModel>> GetAllPostsNegative([Path] string userId);
 
         [Get("users/{userId}/posts/{postId}")]
         Task<GeneralResponse<GetPostResponseModel>> GetPost([Path] string userId, [Path] string postId);

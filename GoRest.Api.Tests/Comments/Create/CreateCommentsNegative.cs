@@ -1,7 +1,9 @@
 ﻿using API_Tests.Asserts;
 using API_Tests.Helpers;
+using FluentAssertions;
 using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Builder;
+using GoRest.Api.Client.Client.Extentions;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System.Threading.Tasks;
@@ -82,6 +84,34 @@ namespace API_Tests.Posts.Create.CreateCommentNegativeTests
 
             // Assert
             CommentsAsserts.VerifyCommentWitInvalidEmailIsNotCreated(response);
+        }
+
+        public async Task VerifyCommentIsNotCreatedWhenInvalidToken()
+        {
+            // Arrange
+            (string userId, string postId) createdPost = await new CreateEntities().CreatePost();
+
+            // & Act
+            var response = await GoRestClient.ForInvalidToken<ICommentsApi>().CreateCommentNegativeAuth(new CreateCommentBuilder().Build(), createdPost.postId);
+
+            // Assert
+            response.ShouldBeUnathorized();
+            response.Meta.Should().BeNull();
+            response.Data.Message.Should().Be("Authentication failed");
+        }
+
+        [Test]
+        public async Task VerifyCommentIsNotCreatedWithoutToken()
+        {
+            (string userId, string postId) createdPost = await new CreateEntities().CreatePost();
+
+            // & Act
+            var response = await GoRestClient.ForWithoutToken<ICommentsApi>().CreateCommentNegativeAuth(new CreateCommentBuilder().Build(), createdPost.postId);
+
+            // Assert
+            response.ShouldBeUnathorized();
+            response.Meta.Should().BeNull();
+            response.Data.Message.Should().Be("Authentication failed");
         }
     }
 }
