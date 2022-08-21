@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
     <PackageReference Include="RestEase" Version="1.5.7" />
+    <PackageReference Include="Statiq.CodeAnalysis" Version="1.0.0-beta.62" />
   </ItemGroup>
 
 </Project>

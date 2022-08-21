@@ -5,7 +5,6 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
 {
     [Header("Accept", "application/json")]
     [Header("Content-Type", "application/json")]
-
     public interface IUsersApi : ISupportBearerAuth
     {
         #region Get User(s)

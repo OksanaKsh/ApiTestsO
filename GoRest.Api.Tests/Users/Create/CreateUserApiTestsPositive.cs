@@ -15,7 +15,7 @@ namespace GoRest.Api.Tests.Users
         public async Task VerifyUserIsCreated()
         {
             // Arrange & Act
-            var response = GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
+            var response =  GoRestClient.For<IUsersApi>().CreateUser(new CreateUserBuilder().Build());
 
             // Assert
             response.ShouldBeCreated();
