@@ -19,6 +19,18 @@ namespace API_Tests.Asserts
             response.Meta.Pagination.Page.Should().BePositive();
             response.Meta.Pagination.Pages.Should().BePositive();
             response.Meta.Pagination.Total.Should().BePositive();
+        }       
+
+        public static void VerifyTodosAreNotReturnedForInvalidUser(GeneralResponse<List<ErrorResponseModel>> response)
+        {
+            response.ShouldBeOK();
+            response.Meta.Should().NotBeNull();
+            response.Data.Should().BeEmpty();
+            response.Meta.Pagination.Should().NotBeNull();
+            response.Meta.Pagination.Limit.Should().Be(10);
+            response.Meta.Pagination.Page.Should().Be(1);
+            response.Meta.Pagination.Pages.Should().Be(0);
+            response.Meta.Pagination.Total.Should().Be(0);
         }
 
         public static void VerifyGetTodoInfo(GeneralResponse<GetTodoResponseModel> response, string userId, string TodoId)

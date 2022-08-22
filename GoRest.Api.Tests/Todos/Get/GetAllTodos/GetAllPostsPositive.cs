@@ -11,17 +11,17 @@ namespace API_Tests.Todos.Get.GetAllTodos
     [TestFixture]
     public class GetAllTodosPositiveTests
     {
-        [Test]
-        public async Task VerifyGetAllTodosReturnInfo()
+        [TestCase("0")]
+        [TestCase("-1")]
+        [TestCase("10000000")]
+        public async Task VerifyTodosAreNotReturnedForInvalidUser(string userId)
         {
-            // Arrange
-            (string userId, string TodoId) createdTodo = await new CreateEntities().CreateTodo();
-
-            //Act
-            var response = await GoRestClient.For<ITodosApi>().GetAllTodos(createdTodo.userId);
+            // Arrange & Act
+            var response = await GoRestClient.For<ITodosApi>().GetAllTodosNegative(userId);
 
             // Assert
-            TodosAsserts.VerifyGetAllTodos(response);
+            TodosAsserts.VerifyTodosAreNotReturnedForInvalidUser(response);
         }
     }
 }
+

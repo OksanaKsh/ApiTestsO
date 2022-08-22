@@ -79,7 +79,7 @@ namespace API_Tests.Asserts
             responseAfterRemoveUser.Meta.Pagination.Total.Should().Be(initialTotal - 1);
         }
 
-        public static void VerifyThatGetAllUsersDoNotReturnInfoForUnauthorizedUser(GeneralResponse<List<GetUserErrorResponseModel>> response)
+        public static void VerifyThatGetAllUsersDoNotReturnInfoForUnauthorizedUser(GeneralResponse<List<ErrorResponseModel>> response)
         {
             response.ShouldBeOK();
             response.Meta.Pagination.Total.Should().Be(0);

@@ -14,7 +14,7 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
         Task<GeneralResponse<List<GetTodoResponseModel>>> GetAllTodos([Path] string userId);
 
         [Get("users/{userId}/todos/")]
-        Task<GeneralResponse<ErrorResponseModel>> GetAllTodosNegative([Path] string userId);
+        Task<GeneralResponse<List<ErrorResponseModel>>> GetAllTodosNegative([Path] string userId);
 
         #endregion
 
