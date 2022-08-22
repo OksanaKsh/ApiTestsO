@@ -11,22 +11,22 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
 
         #region Get Todo(s)
         [Get("users/{userId}/todos/")]
-        Task<GeneralResponse<List<GetPostResponseModel>>> GetAllTodos([Path] string userId);
+        Task<GeneralResponse<List<GetTodoResponseModel>>> GetAllTodos([Path] string userId);
 
         [Get("users/{userId}/todos/")]
-        Task<GeneralResponse<GetPostErrorResponseModel>> GetAllTodosNegative([Path] string userId);
+        Task<GeneralResponse<ErrorResponseModel>> GetAllTodosNegative([Path] string userId);
 
         #endregion
 
-        #region Post Todo
+        #region Todo Todo
         [Post("users/{userId}/todos/")]
-        Task<GeneralResponse<GetTodoResponseModel>> CreateTodo([Path] string userId, [Body] CreateTodoModel postModel);
+        Task<GeneralResponse<GetTodoResponseModel>> CreateTodo([Path] string userId, [Body] CreateTodoModel TodoModel);
 
         [Post("users/{userId}/todos/")]
-        Task<GeneralResponse<AuthentificationFailedModel>> CreateTodoNegativeAuth([Body] CreateTodoModel postModel, [Path] string userId);
+        Task<GeneralResponse<AuthentificationFailedModel>> CreateTodoNegativeAuth([Body] CreateTodoModel TodoModel, [Path] string userId);
 
         [Post("users/{userId}/todos/")]
-        Task<GeneralResponse<List<ErrorResponseModel>>> CreateTodoNegative([Body] CreateTodoModel postModel, [Path] string userId);
+        Task<GeneralResponse<List<ErrorResponseModel>>> CreateTodoNegative([Body] CreateTodoModel TodoModel, [Path] string userId);
         #endregion
     }
 }

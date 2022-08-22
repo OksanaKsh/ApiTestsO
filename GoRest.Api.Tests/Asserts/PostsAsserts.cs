@@ -40,7 +40,7 @@ namespace API_Tests.Asserts
             response.Data.Body.Should().NotBeEmpty();
         }
 
-        public static void VerifyPostFieldsCannotBeBlank(GeneralResponse<List<CreatePostErrorResponseModel>> response)
+        public static void VerifyPostFieldsCannotBeBlank(GeneralResponse<List<ErrorResponseModel>> response)
         {
             response.ShouldBeUnprocessableEntity();
             response.Meta.Should().BeNull();
@@ -50,7 +50,7 @@ namespace API_Tests.Asserts
             response.Data[1].Message.Should().Be("can't be blank");
         }
 
-        public static void VerifyPostWithBigTitleIsNotCreated(GeneralResponse<List<CreatePostErrorResponseModel>> responseCreatePostWithBigTitle)
+        public static void VerifyPostWithBigTitleIsNotCreated(GeneralResponse<List<ErrorResponseModel>> responseCreatePostWithBigTitle)
         {
             responseCreatePostWithBigTitle.ShouldBeUnprocessableEntity();
             responseCreatePostWithBigTitle.Meta.Should().BeNull();
@@ -58,7 +58,7 @@ namespace API_Tests.Asserts
             responseCreatePostWithBigTitle.Data[0].Message.Should().Be("is too long (maximum is 200 characters)");
         }
 
-        public static void VerifyPostWithBigBodyIsNotCreated(GeneralResponse<List<CreatePostErrorResponseModel>> responseCreatePostWithBigBody)
+        public static void VerifyPostWithBigBodyIsNotCreated(GeneralResponse<List<ErrorResponseModel>> responseCreatePostWithBigBody)
         {
             responseCreatePostWithBigBody.ShouldBeUnprocessableEntity();
             responseCreatePostWithBigBody.Meta.Should().BeNull();
@@ -66,7 +66,7 @@ namespace API_Tests.Asserts
             responseCreatePostWithBigBody.Data[0].Message.Should().Be("is too long (maximum is 500 characters)");
         } 
         
-        public static void VerifyPostForNotExistedUserIsNotCreated(GeneralResponse<List<CreatePostErrorResponseModel>> response)
+        public static void VerifyPostForNotExistedUserIsNotCreated(GeneralResponse<List<ErrorResponseModel>> response)
         {
             response.ShouldBeUnprocessableEntity();
             response.Meta.Should().BeNull();

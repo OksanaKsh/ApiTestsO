@@ -1,6 +1,7 @@
 ﻿using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Builder;
 using GoRest.Api.Client.Client.Builder.PostsApi;
+using GoRest.Api.Client.Client.Builder.TodosApi;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using System.Threading.Tasks;
 
@@ -29,6 +30,14 @@ namespace API_Tests.Helpers
             var responseCreateComment = await GoRestClient.For<ICommentsApi>().CreateComment(new CreateCommentBuilder().Build(), postId);
             var commentId = responseCreateComment.Data.Id.ToString();
             return await Task.FromResult((postId, commentId));
+        }
+
+        public async Task<(string userId, string postId)> CreateTodo()
+        {
+            var userId = await CreateUser();
+            var responseCreateTodo = await GoRestClient.For<ITodosApi>().CreateTodo(userId, new CreateTodoBuilder().Build());
+            var postId = responseCreateTodo.Data.Id.ToString();
+            return await Task.FromResult((userId, postId));
         }
     }
 }

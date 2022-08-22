@@ -31,7 +31,7 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
         Task<GeneralResponse<AuthentificationFailedModel>> CreatePostNegativeAuth([Body] CreatePostModel postModel, [Path] string userId);
 
         [Post("users/{userId}/posts/")]
-        Task<GeneralResponse<List<CreatePostErrorResponseModel>>> CreatePostNegative([Body] CreatePostModel postModel, [Path] string userId);
+        Task<GeneralResponse<List<ErrorResponseModel>>> CreatePostNegative([Body] CreatePostModel postModel, [Path] string userId);
         #endregion
     }
 }
