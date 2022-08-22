@@ -35,7 +35,7 @@ namespace API_Tests.Posts.Create.CreateCommentNegativeTests
         }
 
         [Test]
-        public async Task VerifyCommentIsNotCreateWhenFieldsExceedLentgh()
+        public async Task VerifyCommentIsNotCreateWhenFieldsExceedLength()
         {
             // Arrange
             (string userId, string postId) createdPost = await new CreateEntities().CreatePost();
