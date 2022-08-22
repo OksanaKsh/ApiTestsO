@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GoRest.Api.Tests.Users
 {
-    [Parallelizable]
+    [Parallelizable(ParallelScope.None)]
     [TestFixture]
     public class GetAllUsersAfterAddingNewUserApiTests
     {
