@@ -6,7 +6,6 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 namespace API_Tests.Posts.Get.GetPost
 {
-    [Parallelizable]
     [TestFixture]
     public class GetPostPositiveTests
     {

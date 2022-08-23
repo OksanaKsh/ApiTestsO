@@ -7,7 +7,6 @@ using GoRest.Api.Client.Client.Builder;
 
 namespace GoRest.Api.Tests.Users
 {
-    [Parallelizable]
     [TestFixture]
     public class GetUserApiPositiveTests
     {

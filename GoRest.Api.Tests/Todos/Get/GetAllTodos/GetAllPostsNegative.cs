@@ -6,7 +6,6 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 namespace API_Tests.Todos.Get.GetAllTodos
 {
-    [Parallelizable]
     [TestFixture]
     public class GetAllTodosNegativeTests
     {

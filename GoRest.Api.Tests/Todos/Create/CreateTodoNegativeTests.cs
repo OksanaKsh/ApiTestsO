@@ -9,7 +9,6 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 namespace API_Tests.Todos.Create.CreateTodoNegativeTests
 {
-    [Parallelizable]
     [TestFixture]
     public class CreateTodoNegativeTests
     {

@@ -7,7 +7,6 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 namespace API_Tests.Comments.Create
 {
-    [Parallelizable]
     [TestFixture]
     public class CreateCommentPositiveTests
     {

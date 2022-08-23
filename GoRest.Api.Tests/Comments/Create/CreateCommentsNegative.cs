@@ -9,7 +9,6 @@ using NUnit.Framework;
 using System.Threading.Tasks;
 namespace API_Tests.Posts.Create.CreateCommentNegativeTests
 {
-    [Parallelizable]
     [TestFixture]
     public class CreateCommentNegativeTests
     {
