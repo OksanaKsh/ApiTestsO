@@ -1,10 +1,8 @@
-﻿
-using FluentAssertions;
+﻿using FluentAssertions;
 using GoRest.Api.Client.Client.Extentions;
 using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Models.PostsApi;
 using System.Collections.Generic;
-
 namespace API_Tests.Asserts
 {
     public class CommentsAsserts
@@ -40,6 +38,7 @@ namespace API_Tests.Asserts
             response.Data[0].Field.Should().Be("post");
             response.Data[0].Message.Should().Be("must exist");
         }
+
         public static void VerifyCommentWitInvalidEmailIsNotCreated(GeneralResponse<List<ErrorResponseModel>> response)
         {
             response.ShouldBeUnprocessableEntity();
@@ -68,6 +67,7 @@ namespace API_Tests.Asserts
             response.Data.Email.Should().NotBeEmpty();
             response.Data.Body.Should().NotBeEmpty();
         }
+
         public static void VerifyGetAllComments(GeneralResponse<List<GetCommentResponseModel>> response, string postId)
         {
             response.ShouldBeOK();

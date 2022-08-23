@@ -1,6 +1,4 @@
-﻿
-using GoRest.Api.Client.Client.Models.TodoApi;
-
+﻿using GoRest.Api.Client.Client.Models.TodoApi;
 namespace GoRest.Api.Client.Client.Models.PostsApi
 {
     public class GetTodoResponseModel

@@ -5,7 +5,6 @@ using GoRest.Api.Client.Client.Builder.PostsApi;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System.Threading.Tasks;
-
 namespace API_Tests.Posts.Create.CreatePostPositiveTests
 {
     [Parallelizable]

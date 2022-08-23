@@ -1,14 +1,12 @@
 ﻿using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Models.PostsApi;
 using RestEase;
-
 namespace GoRest.Api.Client.Client.Interfaces.Controllers
 {
     [Header("Accept", "application/json")]
     [Header("Content-Type", "application/json")]
     public interface ITodosApi : ISupportBearerAuth
     {
-
         #region Get Todo(s)
         [Get("users/{userId}/todos/")]
         Task<GeneralResponse<List<GetTodoResponseModel>>> GetAllTodos([Path] string userId);

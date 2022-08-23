@@ -1,10 +1,8 @@
-﻿
-using FluentAssertions;
+﻿using FluentAssertions;
 using GoRest.Api.Client.Client.Extentions;
 using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Models.PostsApi;
 using System.Collections.Generic;
-
 namespace API_Tests.Asserts
 {
     public static class PostsAsserts

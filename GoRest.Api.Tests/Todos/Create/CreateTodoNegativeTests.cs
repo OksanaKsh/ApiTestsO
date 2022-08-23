@@ -7,7 +7,6 @@ using GoRest.Api.Client.Client.Extentions;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System.Threading.Tasks;
-
 namespace API_Tests.Todos.Create.CreateTodoNegativeTests
 {
     [Parallelizable]
@@ -69,7 +68,6 @@ namespace API_Tests.Todos.Create.CreateTodoNegativeTests
             // Assert
             TodosAsserts.VerifyTodoWithInvalidStatusIsNotCreated(responseCreateTodoWithInvalidStatus);
         }     
-
 
         [TestCase("0")]
         [TestCase("-1")]

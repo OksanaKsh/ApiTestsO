@@ -2,7 +2,6 @@
 using GoRest.Api.Client.Client.Extentions;
 using GoRest.Api.Client.Client.Models;
 using System.Collections.Generic;
-
 namespace API_Tests.Asserts
 {
     public static class UserAsserts
@@ -17,6 +16,7 @@ namespace API_Tests.Asserts
             responseUpdateUser.Data.Email.Should().Be(responseCreateUser.Data.Email);
             responseUpdateUser.Data.Name.Should().Be(responseCreateUser.Data.Name);
         }
+
         public static void VerifyUserIsUpdated( GeneralResponse<GetUserResponseModel> responseUpdateUser, UpdateUserModel updateUserModel, string userId)
         {
             responseUpdateUser.ShouldBeOK();

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-
 namespace GoRest.Api.Client.Client.Models
 {
     public class UpdateUserModel

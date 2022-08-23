@@ -2,14 +2,12 @@
 using GoRest.Api.Client.Client.Models.CommentApi;
 using GoRest.Api.Client.Client.Models.PostsApi;
 using RestEase;
-
 namespace GoRest.Api.Client.Client.Interfaces.Controllers
 {
     [Header("Accept", "application/json")]
     [Header("Content-Type", "application/json")]
     public interface ICommentsApi : ISupportBearerAuth
     {
-
         #region Get Comment(s)
         [Get("posts/{postId}/comments")]
         Task<GeneralResponse<List<GetCommentResponseModel>>> GetAllComments([Path] string postId);

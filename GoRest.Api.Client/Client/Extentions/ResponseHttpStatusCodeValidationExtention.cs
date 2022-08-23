@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using GoRest.Api.Client.Client.Models;
 using System.Net;
-
 namespace GoRest.Api.Client.Client.Extentions
 {
     public static class ResponseHttpStatusCodeValidationExtention

@@ -4,7 +4,6 @@ using GoRest.Api.Client.Client.Builder.PostsApi;
 using GoRest.Api.Client.Client.Builder.TodosApi;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using System.Threading.Tasks;
-
 namespace API_Tests.Helpers
 {
     public class CreateEntities

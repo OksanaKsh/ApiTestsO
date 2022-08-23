@@ -1,5 +1,4 @@
-﻿
-namespace GoRest.Api.Client.Client.Models
+﻿namespace GoRest.Api.Client.Client.Models
 {
     public class ErrorResponseModel
     {

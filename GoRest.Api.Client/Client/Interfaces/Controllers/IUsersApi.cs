@@ -1,6 +1,5 @@
 ﻿using GoRest.Api.Client.Client.Models;
 using RestEase;
-
 namespace GoRest.Api.Client.Client.Interfaces.Controllers
 {
     [Header("Accept", "application/json")]

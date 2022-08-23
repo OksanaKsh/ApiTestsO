@@ -4,7 +4,6 @@ using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Models.PostsApi;
 using GoRest.Api.Client.Client.Models.TodoApi;
 using System.Collections.Generic;
-
 namespace API_Tests.Asserts
 {
     public static class TodosAsserts

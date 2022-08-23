@@ -1,6 +1,4 @@
-﻿
-
-namespace GoRest.Api.Client.Client.Models.TodoApi
+﻿namespace GoRest.Api.Client.Client.Models.TodoApi
 {
     public enum TodoStatus
     {

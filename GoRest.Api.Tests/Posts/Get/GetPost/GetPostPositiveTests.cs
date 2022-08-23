@@ -4,7 +4,6 @@ using GoRest.Api.Client.Client;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System.Threading.Tasks;
-
 namespace API_Tests.Posts.Get.GetPost
 {
     [Parallelizable]

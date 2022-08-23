@@ -1,14 +1,12 @@
 ﻿using GoRest.Api.Client.Client.Models;
 using GoRest.Api.Client.Client.Models.PostsApi;
 using RestEase;
-
 namespace GoRest.Api.Client.Client.Interfaces.Controllers
 {
     [Header("Accept", "application/json")]
     [Header("Content-Type", "application/json")]
     public interface IPostsApi : ISupportBearerAuth
     {
-
         #region Get Post(s)
         [Get("users/{userId}/posts/")]
         Task<GeneralResponse<List<GetPostResponseModel>>> GetAllPosts([Path] string userId);

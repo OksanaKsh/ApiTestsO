@@ -7,7 +7,6 @@ using GoRest.Api.Client.Client.Extentions;
 using GoRest.Api.Client.Client.Interfaces.Controllers;
 using NUnit.Framework;
 using System.Threading.Tasks;
-
 namespace API_Tests.Posts.Create.CreatePostNegativeTests
 {
     [Parallelizable]

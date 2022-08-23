@@ -1,5 +1,4 @@
 ﻿using GoRest.Api.Client.Client.Models;
-
 namespace GoRest.Api.Client.Client.Builder.TodosApi
 {
     public class CreateTodoBuilder
