@@ -20,8 +20,8 @@ namespace API_Tests.Posts.Create.CreatePostNegativeTests
             var userId = await new CreateEntities().CreateUser();
             var postModelEmptyFields = new CreatePostBuilder().With(x =>
             {
-                x.Title = "";
-                x.Body = "";
+                x.Title = string.Empty;
+                x.Body = string.Empty;
             }
               ).Build();
 

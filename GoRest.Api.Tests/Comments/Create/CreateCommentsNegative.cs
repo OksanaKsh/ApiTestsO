@@ -20,9 +20,9 @@ namespace API_Tests.Posts.Create.CreateCommentNegativeTests
             (string userId, string postId) createdPost = await new CreateEntities().CreatePost();
             var commentModelEmptyFields = new CreateCommentBuilder().With(x =>
             {
-                x.Name = "";
-                x.Email = "";
-                x.Body = "";
+                x.Name = string.Empty;
+                x.Email = string.Empty;
+                x.Body = string.Empty;
             }
               ).Build();
 

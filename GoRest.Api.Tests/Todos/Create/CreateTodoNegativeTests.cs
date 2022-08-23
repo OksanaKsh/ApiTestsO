@@ -20,9 +20,9 @@ namespace API_Tests.Todos.Create.CreateTodoNegativeTests
             var userId = await new CreateEntities().CreateUser();
             var TodoModelEmptyFields = new CreateTodoBuilder().With(x =>
             {
-                x.Title = "";
-                x.Status = "";
-                x.User_Id = "";
+                x.Title = string.Empty;
+                x.Status = string.Empty;
+                x.User_Id = string.Empty;
             }
               ).Build();
 
