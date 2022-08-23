@@ -1,4 +1,3 @@
-using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using GoRest.Api.Client.Client;
@@ -12,7 +11,6 @@ namespace GoRest.Api.Tests.Users
     [TestFixture]
     public class CreateUserApiTestsNegative
     {
-
         [Test]
         public async Task VerifyErrorMessageReceivedWhenCreateAlreadyCreatedUser()
         {
