@@ -38,11 +38,10 @@ namespace API_Tests.Posts.Create.CreateCommentNegativeTests
             // Arrange
             (string userId, string postId) createdPost = await new CreateEntities().CreatePost();
             var commentModelExceedLentghFields = new CreateCommentBuilder().With(x =>
-            {
-                x.Name = "QA_201_characters_entered_negative_tests ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer";
-                x.Email = "QA_201_characters_entered_negative_tests ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis no@gmail.com"; x.Body = "QA_201_characters_entered_negative_tests ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer";
-                x.Body = "QABodyWith501Characters 12345Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Leo duis ut diam quam nulla. Nibh praesent tristique magna sit amet purus gravida. Mauris cursus mattis molestie a iaculis at erat pellentesque. Quisque sagittis purus sit amet volutpat consequat. Sed vulputate mi sit amet mauris commodo quis imperdiet massa. Pellentesque massa placerat duis ultricies lacus sed turpis. Morbi tristique senectus e1";
-
+            {               
+                x.Name = new RandomStringBuilder().GenerateRandomStringOfSpecifiedLength(201);
+                x.Email = new RandomStringBuilder().GenerateRandomStringOfSpecifiedLength(201);
+                x.Body = new RandomStringBuilder().GenerateRandomStringOfSpecifiedLength(501);
             }
               ).Build();
 

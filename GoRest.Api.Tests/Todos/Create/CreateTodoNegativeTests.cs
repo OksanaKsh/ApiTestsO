@@ -39,7 +39,7 @@ namespace API_Tests.Todos.Create.CreateTodoNegativeTests
             var userId = await new CreateEntities().CreateUser();
             var TodoFieldsExceedLengthModel = new CreateTodoBuilder().With(x =>
             {
-                x.Title = "QA_201_characters_entered_negative_tests ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer";
+                x.Title = new RandomStringBuilder().GenerateRandomStringOfSpecifiedLength(201);
             }
               ).Build();
 

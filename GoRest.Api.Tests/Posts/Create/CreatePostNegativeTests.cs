@@ -38,7 +38,7 @@ namespace API_Tests.Posts.Create.CreatePostNegativeTests
             var userId = await new CreateEntities().CreateUser();
             var postModelBigTitle = new CreatePostBuilder().With(x =>
             {
-                x.Title = "QA_201_characters_entered_negative_tests ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer";
+                x.Title = new RandomStringBuilder().GenerateRandomStringOfSpecifiedLength(201);
             }
               ).Build();
 
@@ -56,7 +56,7 @@ namespace API_Tests.Posts.Create.CreatePostNegativeTests
             var userId = await new CreateEntities().CreateUser();
             var postModelBigBody = new CreatePostBuilder().With(x =>
             {
-                x.Body = "QABodyWith501Characters 12345Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Leo duis ut diam quam nulla. Nibh praesent tristique magna sit amet purus gravida. Mauris cursus mattis molestie a iaculis at erat pellentesque. Quisque sagittis purus sit amet volutpat consequat. Sed vulputate mi sit amet mauris commodo quis imperdiet massa. Pellentesque massa placerat duis ultricies lacus sed turpis. Morbi tristique senectus e1";
+                x.Body = new RandomStringBuilder().GenerateRandomStringOfSpecifiedLength(501);
             }
               ).Build();
 
