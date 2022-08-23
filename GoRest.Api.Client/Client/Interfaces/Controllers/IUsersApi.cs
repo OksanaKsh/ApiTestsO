@@ -1,11 +1,9 @@
 ﻿using GoRest.Api.Client.Client.Models;
 using RestEase;
-
 namespace GoRest.Api.Client.Client.Interfaces.Controllers
 {
     [Header("Accept", "application/json")]
     [Header("Content-Type", "application/json")]
-
     public interface IUsersApi : ISupportBearerAuth
     {
         #region Get User(s)
@@ -30,7 +28,7 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
         Task<GeneralResponse<AuthentificationFailedModel>> CreateUserNegativeAuth([Body] CreateUserModel userModel);
 
         [Post("users/")]
-        Task<GeneralResponse<List<CreateUserErrorResponseModel>>> CreateUserNegative([Body] CreateUserModel userModel);
+        Task<GeneralResponse<List<ErrorResponseModel>>> CreateUserNegative([Body] CreateUserModel userModel);
         #endregion
 
         #region Put User
@@ -38,7 +36,7 @@ namespace GoRest.Api.Client.Client.Interfaces.Controllers
         Task<GeneralResponse<GetUserResponseModel>> UpdateUser([Path] string userId, [Body] UpdateUserModel userModel);
 
         [Put("users/{userId}")]
-        Task<GeneralResponse<List<UpdateUserErrorResponseModel>>> UpdateUserNegative([Path] string userId, [Body] UpdateUserModel userModel);
+        Task<GeneralResponse<List<ErrorResponseModel>>> UpdateUserNegative([Path] string userId, [Body] UpdateUserModel userModel);
 
         [Put("users/{userId}")]
         Task<GeneralResponse<AuthentificationFailedModel>> UpdateUserNegativeAuth([Path] string userId, [Body] UpdateUserModel userModel);

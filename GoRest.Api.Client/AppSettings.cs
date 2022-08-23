@@ -1,5 +1,4 @@
-﻿
-namespace GoRest.Api.Client
+﻿namespace GoRest.Api.Client
 {
     public class AppSettings
     {
